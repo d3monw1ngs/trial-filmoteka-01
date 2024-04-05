@@ -1,0 +1,2 @@
+fetch("https://api.themoviedb.org/3/authentication",{method:"GET",headers:{accept:"application/json",Authorization:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNWU4MjRhM2Q5MjJmNjhiYTIxMWZjZjZkYmRjYjZmNSIsInN1YiI6IjY2MGUwMGE3YzhhNWFjMDE2Mzc5ODIzOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dVhYcbmcQhxg-GRwDOu4UQPpqCnjC9js7XxT0ubEx7s"}}).then((h=>h.json())).then((h=>console.log(h))).catch((h=>console.error(h)));
+//# sourceMappingURL=index.8888cdce.js.map
