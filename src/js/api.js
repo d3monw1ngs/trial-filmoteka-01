@@ -14,3 +14,19 @@ export const options = {
        
     }
 }
+
+// async function fetchPopularMovieDetails() {
+//     try {
+//       const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+//       if (!response.ok) {
+//         throw new Error(`Failed to fetch: ${response.statusText}`);
+//       }
+//       const data = await response.json();
+//       console.log("Popular Movie Details:", data.results[0]); // Logging details of the first popular movie
+//     } catch (error) {
+//       console.error("Error:", error);
+//     }
+//   }
+  
+//   // Call the function to fetch popular movie details
+//   fetchPopularMovieDetails();

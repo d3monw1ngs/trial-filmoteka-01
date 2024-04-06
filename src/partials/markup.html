@@ -5,7 +5,7 @@
       <h1>Filmoteka</h1>
     </div>
 
-    <form class="searchform" id="search-form">
+    <form class="search-form" id="search-form">
       <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input">
       <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
     </form>
@@ -26,3 +26,31 @@
     </section>
     <div id="movies-container"></div>
 </main>
+
+<!-- FOOTER SECTION -->
+<footer class="footer" id="footer">
+  <span>&copy; 2020 | All Rights Reserved | Developed with <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+          d="M7 12.88L6.02 11.9C2.38 8.68 0 6.51 0 3.85C0 1.68 1.68 0 3.85 0C5.04 0 6.23 0.56 7 1.47C7.77 0.56 8.96 0 10.15 0C12.32 0 14 1.68 14 3.85C14 6.51 11.62 8.68 7.98 11.9L7 12.88Z"
+          fill="#FF6B08" />
+  </svg> by <u>GoIT Students</u> </span>
+</footer>
+
+<!-- MODAL SECTION -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <div>
+        
+      </div>
+      <h2 id="movie-title"></h2>
+      <p id="vote">Vote/Votes</p>
+      <p id="popularity">Popularity</p>
+      <p id="original-title">Original Title</p>
+      <p id="genre">Genre</p>
+      <h4 id="about">About</h4>
+      <p id="movie-description"></p>
+      <button id="add-to-watched">Add to Watched</button>
+      <button id="add-to-queu">Add to Queu</button>
+  </div>
+</div>
