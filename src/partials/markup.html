@@ -1,31 +1,40 @@
-
 <header class="header">
-  <div class="filmtitle">
-    <img class="film" src="./images/film.png" alt="film">
-    <h1>Filmoteka</h1>
-  </div>
-
-  <form class="searchform" id="search-form">
-    <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input">
-    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-  </form>
-  <img class="srcline" src="./images/Line 1.png" alt="line">
-
-  <div class="mylibrary">
-    <button class="homebtn" type="submit">HOME</button>
-    <button class="libr" type="submit">MY LIBRARY</button>
-  </div>
-</header>
-<main class="main-content">
-  <section class="section">
-    <div class="container">
-      <div class="gallery">
-        <!-- Video Cards -->
+  <div class="header-top">
+    <div class="header-top-left">
+        <a class="filmtitle" href="/src/index.html">
+          <img class="film" src="./images/film.png" alt="film">
+          <h1 class="page-title">Filmoteka</h1>
+        </a>
+    </div>
+    <div class="header-top-right">
+      <div class="mylibrary">
+        <a class="header-link homebtn" href="/src/index.html">HOME</a>
+        <button class="header-link libr" type="submit">MY LIBRARY</button>
       </div>
     </div>
-  </section>
-  <div id="movies-container"></div>
-</main>
+  </div>
+  
+  <!-- FORM -->
+  <div class="header-bottom">
+    <form class="searchform" id="search-form">
+      <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input">
+      <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+    <img class="srcline" src="./images/Line 1.png" alt="line">
+  </div>
+</header>
+
+<!-- MAIN SECTION -->
+<div id="tags"></div>
+<main id="main"></main>
+
+<!-- PAGINATION SECTION -->
+<div class="pagination">
+  <div class="page" id="prev">Previous Page</div>
+  <div class="current" id="current">1</div>
+  <div class="page" id="next">Next Page</div>
+</div>
+
 
 
 <!-- FOOTER SECTION -->
@@ -37,21 +46,23 @@
   </svg> by <u>GoIT Students</u> </span>
 </footer>
 
-<!-- MODAL SECTION -->
-<!-- <div id="modal" class="modal hidden">
-  <div class="modal-content">
-      <span class="close">&times;</span>
-      <div>
-        
+ <!-- Modal Section -->
+ <div class="container">
+  <div class="poster"><img/></div>
+  <div class="movie-info-wrapper">
+      <ul class="movie-info-list">
+          <li>v</li>
+          <li>v</li>
+          <li>v</li>
+          <li>v</li>
+      </ul>
+      <div class="movie-info-about">
+          <h3> ABOUT </h3>
+              <p>summary...</p>
       </div>
-      <h2 id="movie-title"></h2>
-      <p id="vote">Vote/Votes</p>
-      <p id="popularity">Popularity</p>
-      <p id="original-title">Original Title</p>
-      <p id="genre">Genre</p>
-      <h4 id="about">About</h4>
-      <p id="movie-description"></p>
-      <button id="add-to-watched">Add to Watched</button>
-      <button id="add-to-queu">Add to Queu</button>
+      <div class="buttons">
+          <button>ADD TO WATCHED</button>
+          <button>ADD TO QUEU</button>
+      </div>
   </div>
-</div> -->
+</div>
