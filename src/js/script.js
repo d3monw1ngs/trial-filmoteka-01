@@ -17,7 +17,7 @@ const options = {
     }
 }
 
-const main = document.getElementsByClassName('main-content');
+const main = document.getElementById('main');
 const form = document.getElementById('search-form');
 const search = document.getElementById('search-input');
 const galleryEl = document.getElementById('gallery');
@@ -86,7 +86,7 @@ function showMovies(data) {
                 <span class="${vote_average}">${vote_average}</span>
             </div>        
         `
-        
+        main.appendChild(movieEl);
     })
 }
 
