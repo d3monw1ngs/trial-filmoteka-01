@@ -73,7 +73,7 @@ function showMovies(data) {
     main.innerHTML = '';
 
     data.forEach(movie => {
-        const { title, poster_path, primary_release_year, vote_average } = movie;
+        const { title, poster_path, release_date, vote_average } = movie;
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.innerHTML = `
@@ -82,8 +82,10 @@ function showMovies(data) {
             
             <div class="movie-info">
                 <h3>${title}</h3>
-                <span class="${primary_release_year}">${primary_release_year}</span>
-                <span class="${vote_average}">${vote_average}</span>
+                <div class="movie-details">
+                    <span id="release_date" class="${release_date}">${release_date}</span>
+                    <span id="vote_average" class="${vote_average}">${vote_average}</span>
+                </div>
             </div>        
         `
         main.appendChild(movieEl);
@@ -132,3 +134,5 @@ function pageCall(page) {
         getMovies(url);
     }
 }
+
+// MODAL PART

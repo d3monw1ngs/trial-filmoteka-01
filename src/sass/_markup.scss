@@ -24,6 +24,22 @@ main {
     width: 100%;
 }
 
+.movie-info {
+    padding: 10px;
+}
+
+#release_date,
+#vote_average{
+    color: rgb(239, 241, 243);
+    font-size: 18px;
+}
+
+.movie-details{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
 
 .header {
     background-image: url('../images/Rectangle 1.png');
@@ -168,7 +184,7 @@ main {
     margin: 10px 40px;
     align-items: center;
     justify-content: center;
-    color: blue;
+    color: rgb(255, 60, 0);
 }
 
 .page{
