@@ -1,14 +1,14 @@
 
-<header class="header">
+<header>
     <div class="filmtitle">
-      <img class="film" src="./images/film.png" alt="film">
-      <h1>Filmoteka</h1>
+      <a href="#"><img src="./images/film.png" class="film-icon"></img></a>
+      <a href="#" class="logo">Filmoteka</a>
     </div>
 
-    <form class="search-form" id="search-form">
-      <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input">
-      <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-    </form>
+    <div class="search" id="search">
+      <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input"/>
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </div>
     <img class="srcline" src="./images/Line 1.png" alt="line">
 
     <div class="mylibrary">
@@ -16,6 +16,7 @@
       <button class="libr" type="submit">MY LIBRARY</button>
     </div>
   </header>
+
   <main class="main-content">
     <section class="section">
       <div class="container">
@@ -37,7 +38,7 @@
 </footer>
 
 <!-- MODAL SECTION -->
-<div id="modal" class="modal hidden">
+<!-- <div id="modal" class="modal hidden">
   <div class="modal-content">
       <span class="close">&times;</span>
       <div>
@@ -53,4 +54,4 @@
       <button id="add-to-watched">Add to Watched</button>
       <button id="add-to-queu">Add to Queu</button>
   </div>
-</div>
+</div> -->
