@@ -161,6 +161,44 @@ main {
     color: white;
 }
 
+.pagination{
+    display: flex;
+    margin: 10px 40px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.page{
+    padding: 20px;
+    cursor: pointer;
+}
+
+.page.disabled{
+    cursor: not-allowed;
+    color: grey;
+}
+
+.current{
+    padding: 10px;
+    border-radius: 25%;
+    border: 5px solid orange;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.footer {
+    background-color: rgba(229, 229, 229, 1);
+    color: rgba(84, 84, 84, 1);
+    width: auto;
+    height: 77px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-direction: column;
+}
+
 
 @media screen and (min-width: 768px) {
     .header-top-left {
@@ -186,16 +224,6 @@ main {
     
 }
 
-.footer {
-    background-color: rgba(229, 229, 229, 1);
-    color: rgba(84, 84, 84, 1);
-    width: auto;
-    height: 77px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    flex-direction: column;
-}
+
 
 
