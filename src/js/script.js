@@ -35,6 +35,9 @@ var totalPages = 100;
 
 getMovies(API_URL);
 
+// home button function
+
+
 // DISPLAY MOVIE CARDS
 function getMovies(url) {
     lastUrl = url;
