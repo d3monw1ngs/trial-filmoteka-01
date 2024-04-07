@@ -1,32 +1,32 @@
 
-<header>
-    <div class="filmtitle">
-      <a href="#"><img src="./images/film.png" class="film-icon"></img></a>
-      <a href="#" class="logo">Filmoteka</a>
-    </div>
+<header class="header">
+  <div class="filmtitle">
+    <img class="film" src="./images/film.png" alt="film">
+    <h1>Filmoteka</h1>
+  </div>
 
-    <div class="search" id="search">
-      <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input"/>
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </div>
-    <img class="srcline" src="./images/Line 1.png" alt="line">
+  <form class="searchform" id="search-form">
+    <input type="text" name="query" autocomplete="off" placeholder="Search for movies..." id="search-input">
+    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+  </form>
+  <img class="srcline" src="./images/Line 1.png" alt="line">
 
-    <div class="mylibrary">
-      <button class="homebtn" type="submit">HOME</button>
-      <button class="libr" type="submit">MY LIBRARY</button>
-    </div>
-  </header>
-
-  <main class="main-content">
-    <section class="section">
-      <div class="container">
-        <div class="gallery">
-          <!-- Video Cards -->
-        </div>
+  <div class="mylibrary">
+    <button class="homebtn" type="submit">HOME</button>
+    <button class="libr" type="submit">MY LIBRARY</button>
+  </div>
+</header>
+<main class="main-content">
+  <section class="section">
+    <div class="container">
+      <div class="gallery">
+        <!-- Video Cards -->
       </div>
-    </section>
-    <div id="movies-container"></div>
+    </div>
+  </section>
+  <div id="movies-container"></div>
 </main>
+
 
 <!-- FOOTER SECTION -->
 <footer class="footer" id="footer">
