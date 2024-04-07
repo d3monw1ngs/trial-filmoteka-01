@@ -93,7 +93,7 @@ function showMovies(data) {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const searchTerm = search.ariaValueMax;
+    const searchTerm = search.value;
     
     if(searchTerm) {
         getMovies(searchURL+'&query='+searchTerm)
@@ -102,4 +102,33 @@ form.addEventListener('submit', (e) => {
     }
 })
 
+// function for previous page
+prev.addEventListener('click', () => {
+    if(prevPage > 0) {
+        pageCall(prevPage);
+    }
+})
 
+// function for the next page
+next.addEventListener('click', () => {
+    if(nextPage <= totalPages) {
+        pageCall(nextPage);
+    }
+})
+
+function pageCall(page) {
+    let urlSplit = lastUrl.split('?');
+    let queryParams = urlSplit[1].split('&');
+    let key = queryParams[queryParams.length - 1].split('=');
+    if(key[0] != 'page') {
+        let url = lastUrl + '&page=' + page;
+        getMovies(url);
+    }else{
+        key[1] = page.toString();
+        let a = key.join('=');
+        queryParams[queryParams.length - 1] = a;
+        let b = queryParams.join('&');
+        let url = urlSplit[0] +'?'+ b;
+        getMovies(url);
+    }
+}

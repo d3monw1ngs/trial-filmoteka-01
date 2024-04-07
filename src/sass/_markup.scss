@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: 'roboto', sans-serif;
+    background-color: rgb(48, 62, 145);
 }
 
 main {
@@ -14,6 +15,7 @@ main {
     margin: 1rem;
     border-radius: 5px;
     box-shadow: 0.2px 4px 5px rgba(0,0,0,0.1);
+    background-color: rgb(127, 150, 255);
     position: relative;
     overflow: hidden;
 }
@@ -166,7 +168,7 @@ main {
     margin: 10px 40px;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: blue;
 }
 
 .page{
