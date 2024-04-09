@@ -5,96 +5,17 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const searchURL = BASE_URL + '/search/movie?'+API_KEY;
 
 const options = {
-    params: {
-        key: API_KEY,
-        query: "",
-        include_adult: false,
-        language: "en-US",
-        primary_release_year: "",
-        page: 1,
-        region: "",
-        year: "", 
-    }
+  params: {
+      key: API_KEY,
+      query: "",
+      include_adult: false,
+      language: "en-US",
+      primary_release_year: "",
+      page: 1,
+      region: "",
+      year: "", 
+  }
 }
-
-const genre = [
-    {
-      "id": 28,
-      "name": "Action"
-    },
-    {
-      "id": 12,
-      "name": "Adventure"
-    },
-    {
-      "id": 16,
-      "name": "Animation"
-    },
-    {
-      "id": 35,
-      "name": "Comedy"
-    },
-    {
-      "id": 80,
-      "name": "Crime"
-    },
-    {
-      "id": 99,
-      "name": "Documentary"
-    },
-    {
-      "id": 18,
-      "name": "Drama"
-    },
-    {
-      "id": 10751,
-      "name": "Family"
-    },
-    {
-      "id": 14,
-      "name": "Fantasy"
-    },
-    {
-      "id": 36,
-      "name": "History"
-    },
-    {
-      "id": 27,
-      "name": "Horror"
-    },
-    {
-      "id": 10402,
-      "name": "Music"
-    },
-    {
-      "id": 9648,
-      "name": "Mystery"
-    },
-    {
-      "id": 10749,
-      "name": "Romance"
-    },
-    {
-      "id": 878,
-      "name": "Science Fiction"
-    },
-    {
-      "id": 10770,
-      "name": "TV Movie"
-    },
-    {
-      "id": 53,
-      "name": "Thriller"
-    },
-    {
-      "id": 10752,
-      "name": "War"
-    },
-    {
-      "id": 37,
-      "name": "Western"
-    }
-  ]
 
 // MODAL PART
 const modal = document.getElementById('myModal');
@@ -109,14 +30,36 @@ const addToWatchedBtn = document.getElementById('addToWatchedBtn');
 const addToQueuBtn = document.getElementById('addToQueuBtn');
 const closeBtn = document.getElementsByClassName('close')[0];
 
+let genres;
+
+fetch(BASE_URL + '/genre/movie/list?' + API_KEY)
+  .then(response => response.json())
+  .then(data => {
+    genres = data.genres;
+    getMovies(API_URL, genres);
+  })
+  .catch(error => {
+    console.error('Error fetching genres:', error);
+  });
+
 // function to open the modal with movie details
 function openModal(movie) {
+    console.log('Movie data:', movie);
     modalPoster.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     modalTitle.textContent = movie.title;
-    modalVote.textContent = movie.vote_average+' / '+movie.vote_count;
-    modalPopularity.textContent = movie.popularity;
-    modalOrigTitle.textContent = movie.original_title;
-    modalGenre.textContent = movie.genre;
+    modalVote.innerHTML = `Vote / Votes: <span class="vot">${movie.vote_average}</span> / ${movie.vote_count}`;
+    modalPopularity.innerHTML = `Popularity: <span class="pop">${movie.popularity}</span>`;
+    modalOrigTitle.innerHTML = `Title: <span class="titl">${movie.original_title}</span>`;
+    // modalGenre.textContent = movie.genre;
+    
+    const movieGenres = movie.genre_ids && Array.isArray(genres)
+    ? movie.genre_ids.map(genreId => {
+        const genre = genres.find(genre => genre.id === genreId);
+        return genre ? genre.name : '';
+    }).join(', ')
+    : '';
+
+    modalGenre.innerHTML = `Genre: <span class="movgen">${movieGenres}</span>`;
     modalOverview.textContent = movie.overview;
     modal.style.display = "block";
 }
@@ -140,6 +83,7 @@ const main = document.getElementById('main');
 const form = document.getElementById('search-form');
 const search = document.getElementById('search-input');
 const galleryEl = document.getElementById('gallery');
+const loader = document.querySelector('.loader-container');
 
 // PAGINATION
 const prev = document.getElementById('prev');
@@ -152,73 +96,85 @@ var prevPage = 3;
 var lastUrl = '';
 var totalPages = 100;
 
+let currentMovieTitle;
+let queue = [];
+localStorage.setItem("movie-queue", JSON.stringify(queue));
+
 getMovies(API_URL);
 
 // DISPLAY MOVIE CARDS
 function getMovies(url) {
-    lastUrl = url;
+  lastUrl = url;
 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.results)
-            if(data.results.length !== 0){
-                showMovies(data.results);
-                currentPage = data.page;
-                nextPage = currentPage + 1;
-                prevPage = currentPage - 1;
-                totalPages = data.total_pages;
+  // main.classList.toggle('is-hidden');
+  // loader.classList.toggle('is-hidden');
 
-                current.innerText = currentPage;
-                if(currentPage <= 1){
-                    prev.classList.add('disabled');
-                    next.classList.remove('disabled');
-                } else if(currentPage >= totalPages){
-                    prev.classList.remove('disabled');
-                    next.classList.add('disabled');
-                } else {
-                    prev.classList.remove('disabled');
-                    next.classList.remove('disabled');
-                }
+  fetch(url)
+      .then(res => res.json())
+      .then(data => {
+          console.log(data); // Log data to inspect
+          if(data.results.length !== 0){
+              showMovies(data.results);
+              currentPage = data.page;
+              nextPage = currentPage + 1;
+              prevPage = currentPage - 1;
+              totalPages = data.total_pages;
 
-            } else {
-                main.innerHTML = `<h1 class="no-results">No Results Found</h1>`
-            }
+              current.innerText = currentPage;
+              if(currentPage <= 1){
+                  prev.classList.add('disabled');
+                  next.classList.remove('disabled');
+              } else if(currentPage >= totalPages){
+                  prev.classList.remove('disabled');
+                  next.classList.add('disabled');
+              } else {
+                  prev.classList.remove('disabled');
+                  next.classList.remove('disabled');
+              }
 
-    })
+          } else {
+              main.classList.toggle('is-hidden');
+              loader.classList.toggle('is-hidden');
+              main.innerHTML = `<h1 class="no-results">No Results Found</h1>`;
+          }
+      })
+      .catch(error => {
+          console.error('Error fetching movies:', error);
+          main.classList.toggle('is-hidden');
+          loader.classList.toggle('is-hidden');
+          main.innerHTML = `<h1 class="no-results">Error fetching movies</h1>`;
+      });
 }
 
 function showMovies(data) {
-    main.innerHTML = '';
+  main.innerHTML = '';
 
-    data.forEach(movie => {
-        const { title, poster_path, release_date, vote_average } = movie;
-        const movieEl = document.createElement('div');
-        movieEl.classList.add('movie');
+  data.forEach(movie => {
+      const { title, poster_path, release_date, genre_ids, vote_average } = movie;
+      const movieEl = document.createElement('div');
+      movieEl.classList.add('movie');
 
-        // const movieGenres = genre_ids && Array.isArray(genres)
-        // ? genre_ids.map(genreId => {
-        //   const genre = genres.find(genre => genre.id === genreId);
-        //   return genre ? genre.name : '';
-        // }).join(', ')
-        // : '';
-        
-        movieEl.innerHTML = `
-            <img src="${poster_path? IMG_URL+poster_path: "http:/>/via.placeholder.com/1080x1500"}"
-                alt="${title}"/>
-            
-            <div class="movie-info">
-                <h3>${title}</h3>
-                // <div class="genres">${movieGenres}</div>
-                <div class="movie-details">
-                    <span id="release_date" class="${release_date}">${release_date}</span>
-                    <span id="vote_average" class="${vote_average}">${vote_average}</span>
-                </div>
-            </div>        
-        `
-        movieEl.addEventListener('click', function() { openModal(movie) });
-        main.appendChild(movieEl);
-    })
+      const movieGenres = Array.isArray(genres)
+          ? genre_ids?.map(genreId => {
+              const genre = genres.find(genre => genre.id === genreId);
+              return genre ? genre.name : '';
+          }).join(', ')
+          : '';
+      
+      const releaseYear = release_date ? (new Date(release_date)).getFullYear() : '';
+
+      movieEl.innerHTML = `
+          <img src="${poster_path ? IMG_URL + poster_path : 'http://via.placeholder.com/1080x1500'}" alt="${title}"/>
+          
+          <div class="movie-info">
+              <h3>${title}</h3>
+          </div>
+          <div class="genredate">${movieGenres} | ${releaseYear}</div>
+          <span id="vote_average" class="${vote_average}">${vote_average}</span>
+      `;
+      movieEl.addEventListener('click', function() { openModal(movie) });
+      main.appendChild(movieEl);
+  });
 }
 
 form.addEventListener('submit', (e) => {
