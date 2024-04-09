@@ -139,7 +139,7 @@ window.addEventListener('click', function(event) {
 const main = document.getElementById('main');
 const form = document.getElementById('search-form');
 const search = document.getElementById('search-input');
-// const galleryEl = document.getElementById('gallery');
+const galleryEl = document.getElementById('gallery');
 
 // PAGINATION
 const prev = document.getElementById('prev');
