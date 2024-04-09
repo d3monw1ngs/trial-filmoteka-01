@@ -97,12 +97,49 @@ const genre = [
   ]
 
 // MODAL PART
+const modal = document.getElementById('myModal');
+const modalPoster = document.getElementById('modal-poster');
+const modalTitle = document.getElementById('modal-title');
+const modalVote = document.getElementById('modal-vote');
+const modalPopularity = document.getElementById('modal-popularity');
+const modalOrigTitle = document.getElementById('modal-original-title');
+const modalGenre = document.getElementById('modal-genre');
+const modalOverview = document.getElementById('modal-overview');
+const addToWatchedBtn = document.getElementById('addToWatchedBtn');
+const addToQueuBtn = document.getElementById('addToQueuBtn');
+const closeBtn = document.getElementsByClassName('close')[0];
 
+// function to open the modal with movie details
+function openModal(movie) {
+    modalPoster.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+    modalTitle.textContent = movie.title;
+    modalVote.textContent = movie.vote_average+' / '+movie.vote_count;
+    modalPopularity.textContent = movie.popularity;
+    modalOrigTitle.textContent = movie.original_title;
+    modalGenre.textContent = movie.genre;
+    modalOverview.textContent = movie.overview;
+    modal.style.display = "block";
+}
+
+// function to close the modal
+function closeModal() {
+    modal.style.display = "none";
+}
+
+// event listener for the close button
+closeBtn.addEventListener('click', closeModal);
+
+// event listener for clicks outside the modal
+window.addEventListener('click', function(event) {
+    if(event.target === modal) {
+        closeModal();
+    }
+});
 
 const main = document.getElementById('main');
 const form = document.getElementById('search-form');
 const search = document.getElementById('search-input');
-const galleryEl = document.getElementById('gallery');
+// const galleryEl = document.getElementById('gallery');
 
 // PAGINATION
 const prev = document.getElementById('prev');
@@ -116,9 +153,6 @@ var lastUrl = '';
 var totalPages = 100;
 
 getMovies(API_URL);
-
-// home button function
-
 
 // DISPLAY MOVIE CARDS
 function getMovies(url) {
@@ -161,18 +195,28 @@ function showMovies(data) {
         const { title, poster_path, release_date, vote_average } = movie;
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
+
+        // const movieGenres = genre_ids && Array.isArray(genres)
+        // ? genre_ids.map(genreId => {
+        //   const genre = genres.find(genre => genre.id === genreId);
+        //   return genre ? genre.name : '';
+        // }).join(', ')
+        // : '';
+        
         movieEl.innerHTML = `
             <img src="${poster_path? IMG_URL+poster_path: "http:/>/via.placeholder.com/1080x1500"}"
                 alt="${title}"/>
             
             <div class="movie-info">
                 <h3>${title}</h3>
+                // <div class="genres">${movieGenres}</div>
                 <div class="movie-details">
                     <span id="release_date" class="${release_date}">${release_date}</span>
                     <span id="vote_average" class="${vote_average}">${vote_average}</span>
                 </div>
             </div>        
         `
+        movieEl.addEventListener('click', function() { openModal(movie) });
         main.appendChild(movieEl);
     })
 }
