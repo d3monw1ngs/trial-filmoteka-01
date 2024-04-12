@@ -106,9 +106,6 @@ getMovies(API_URL);
 function getMovies(url) {
   lastUrl = url;
 
-  // main.classList.toggle('is-hidden');
-  // loader.classList.toggle('is-hidden');
-
   fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -219,5 +216,3 @@ function pageCall(page) {
         getMovies(url);
     }
 }
-
-
