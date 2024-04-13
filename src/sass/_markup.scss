@@ -314,7 +314,9 @@ main {
 }
 
 #addToWatchedBtn,
-#addToQueuBtn {
+#addToQueuBtn,
+.watched,
+.queue {
     padding: 20px;
     text-transform: uppercase;
     font-weight: 400;
@@ -323,7 +325,9 @@ main {
 }
 
 #addToWatchedBtn:hover,
-#addToQueuBtn:hover {
+#addToQueuBtn:hover,
+.watched:hover,
+.queue:hover {
     background-color: #FF6B01;
     color: white;  
 }

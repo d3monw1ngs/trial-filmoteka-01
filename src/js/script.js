@@ -137,7 +137,7 @@ function showMovies(data) {
   main.innerHTML = '';
 
   data.forEach(movie => {
-      const { title, poster_path, release_date, genre_ids, vote_average } = movie;
+      const { title, release_date, genre_ids, vote_average } = movie;
       const movieEl = document.createElement('div');
       movieEl.classList.add('movie');
 
@@ -220,6 +220,13 @@ function pageCall(page) {
     localStorage.setItem('movie-watched', JSON.stringify(watched));
   });
   //Add to Queue (localStorage)
+  const element = document.querySelector('.movie-queu');
+if (element) {
+    const text = element.innerText;
+    // Use the text here
+} else {
+    console.error('Element not found.');
+}
   addToQueuBtn.addEventListener('click', () => {
     queue.includes(currentMovieTitle)
       ? alert(`${currentMovieTitle} has been added to the queue already`)

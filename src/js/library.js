@@ -20,7 +20,13 @@ queueBtn.addEventListener('click', function(e) {
 // Load movies whose Ids matched with those stored in the localStorage
 async function getLibMovies(array) {
     moviesContainer.innerHTML = '';
-    for ( const movieId of array ) {
+
+    const itemsPerPage = 20;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const moviesToDisplay = array.slice(startIndex, endIndex);
+
+    for ( const movieId of moviesToDisplay ) {
         try {
             if(!isValidMovieId(movieId)) {
                 throw new Error(`Invalid movie ID: ${movieId}`);
