@@ -7,6 +7,7 @@ let watchedMovies = JSON.parse(localStorage.getItem('movie-watched'));
 let queuedMovies = JSON.parse(localStorage.getItem('movie-queue'));
 
 watchedBtn.addEventListener('click', function(e) {
+    console.log("Element:", watchedBtn);
     e.preventDefault();
     getLibMovies(watchedMovies);
 });

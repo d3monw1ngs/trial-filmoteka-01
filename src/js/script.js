@@ -151,7 +151,7 @@ function showMovies(data) {
       const releaseYear = release_date ? (new Date(release_date)).getFullYear() : '';
 
       movieEl.innerHTML = `
-          <img src="${poster_path ? IMG_URL + poster_path : 'http://via.placeholder.com/1080x1500'}" alt="${title}"/>
+          <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${title}"/>
           
           <div class="movie-info">
               <h3>${title}</h3>
