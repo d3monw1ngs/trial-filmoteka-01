@@ -4,18 +4,12 @@ const API_URL = BASE_URL + '/discover/movie?sort_by-popularity.desc&' + API_KEY;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const searchURL = BASE_URL + '/search/movie?'+API_KEY;
 
-const options = {
-  params: {
-      key: API_KEY,
-      query: "",
-      include_adult: false,
-      language: "en-US",
-      primary_release_year: "",
-      page: 1,
-      region: "",
-      year: "", 
-  }
-}
+// LOCAL STORAGE
+let currentMovieTitle, currentMovieID, queue, watched;
+  JSON.parse(localStorage.getItem("movie-queue")) === null ? queue = [] : queue = JSON.parse(localStorage.getItem("movie-queue"));
+  localStorage.setItem("movie-queue", JSON.stringify(queue));
+  JSON.parse(localStorage.getItem("movie-watched")) === null ? watched = [] : watched = JSON.parse(localStorage.getItem("movie-watched"));
+  localStorage.setItem("movie-watched", JSON.stringify(watched));
 
 // MODAL PART
 const modal = document.getElementById('myModal');
@@ -95,10 +89,6 @@ var nextPage = 2;
 var prevPage = 3;
 var lastUrl = '';
 var totalPages = 100;
-
-let currentMovieTitle;
-let queue = [];
-localStorage.setItem("movie-queue", JSON.stringify(queue));
 
 getMovies(API_URL);
 
@@ -216,3 +206,43 @@ function pageCall(page) {
         getMovies(url);
     }
 }
+ //Clicking a movie
+ main.addEventListener('click', e => {
+    let currentMovie = e.target.parentElement;
+    currentMovieTitle = currentMovie.lastElementChild.firstElementChild.innerText;
+    console.log(currentMovieTitle);
+  });
+  //Add to Watched (localStorage)
+  addToWatchedBtn.addEventListener('click', () => {
+    watched.includes(currentMovieTitle)
+      ? alert(`${currentMovieTitle} has been watched already`)
+      : watched.push(currentMovieTitle);
+    localStorage.setItem('movie-watched', JSON.stringify(watched));
+  });
+  //Add to Queue (localStorage)
+  addToQueuBtn.addEventListener('click', () => {
+    queue.includes(currentMovieTitle)
+      ? alert(`${currentMovieTitle} has been added to the queue already`)
+      : queue.push(currentMovieTitle);
+    localStorage.setItem('movie-queue', JSON.stringify(queue));
+  });
+  //Add to Watched (localStorage)
+  addToWatchedBtn.addEventListener('click', () => {
+    watched.includes(currentMovieID) ?
+      alert(`${currentMovieTitle} has been watched already`) :
+      watched.push(currentMovieID);
+    localStorage.setItem('movie-watched', JSON.stringify(watched));
+  })
+  //Add to Queue (localStorage)
+  addToQueuBtn.addEventListener('click', () => {
+    queue.includes(currentMovieID) ?
+      alert(`${currentMovieTitle} has been added to the queue already`) :
+      queue.push(currentMovieID);
+    localStorage.setItem('movie-queue', JSON.stringify(queue));
+  })
+  //Pressing escape to close modal
+  document.body.addEventListener('keydown', event => {
+    if (event.code === 'Escape') {
+      closeModal();
+    }
+  });
