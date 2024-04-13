@@ -128,7 +128,8 @@ function getMovies(url) {
       .catch(error => {
           console.error('Error fetching movies:', error);
           main.classList.toggle('is-hidden');
-          loader.classList.toggle('is-hidden');
+          console.log();
+        //   loader.classList.toggle('is-hidden');
           main.innerHTML = `<h1 class="no-results">Error fetching movies</h1>`;
       });
 }
@@ -212,6 +213,7 @@ function pageCall(page) {
     currentMovieTitle = currentMovie.lastElementChild.firstElementChild.innerText;
     console.log(currentMovieTitle);
   });
+
   //Add to Watched (localStorage)
   addToWatchedBtn.addEventListener('click', () => {
     watched.includes(currentMovieTitle)
@@ -219,34 +221,42 @@ function pageCall(page) {
       : watched.push(currentMovieTitle);
     localStorage.setItem('movie-watched', JSON.stringify(watched));
   });
-  //Add to Queue (localStorage)
-  const element = document.querySelector('.movie-queu');
+
+// Add to Queue (localStorage)
+const addToQueueBtn = document.getElementById('queue-btn');
+
+const element = document.querySelector('.movie-queue');
 if (element) {
-    const text = element.innerText;
-    // Use the text here
+    const innerText = element.innerText;
+    console.log('Inner text:', innerText);
 } else {
     console.error('Element not found.');
 }
-  addToQueuBtn.addEventListener('click', () => {
-    queue.includes(currentMovieTitle)
-      ? alert(`${currentMovieTitle} has been added to the queue already`)
-      : queue.push(currentMovieTitle);
-    localStorage.setItem('movie-queue', JSON.stringify(queue));
-  });
-  //Add to Watched (localStorage)
-  addToWatchedBtn.addEventListener('click', () => {
-    watched.includes(currentMovieID) ?
-      alert(`${currentMovieTitle} has been watched already`) :
-      watched.push(currentMovieID);
-    localStorage.setItem('movie-watched', JSON.stringify(watched));
-  })
-  //Add to Queue (localStorage)
-  addToQueuBtn.addEventListener('click', () => {
-    queue.includes(currentMovieID) ?
-      alert(`${currentMovieTitle} has been added to the queue already`) :
-      queue.push(currentMovieID);
-    localStorage.setItem('movie-queue', JSON.stringify(queue));
-  })
+
+addToQueuBtn.addEventListener('click', () => {
+    const currentMovieTitle = '';
+    const queue = JSON.parse(localStorage.getItem('movie-queue')) || [];
+    if (queue.includes(currentMovieTitle)) {
+        alert(`${currentMovieTitle} has been added to the queue already`);
+    } else {
+        queue.push(currentMovieTitle);
+        localStorage.setItem('movie-queue', JSON.stringify(queue));
+    }
+});
+//   //Add to Watched (localStorage)
+//   addToWatchedBtn.addEventListener('click', () => {
+//     watched.includes(currentMovieID) ?
+//       alert(`${currentMovieTitle} has been watched already`) :
+//       watched.push(currentMovieID);
+//     localStorage.setItem('movie-watched', JSON.stringify(watched));
+//   })
+//   //Add to Queue (localStorage)
+//   addToQueuBtn.addEventListener('click', () => {
+//     queue.includes(currentMovieID) ?
+//       alert(`${currentMovieTitle} has been added to the queue already`) :
+//       queue.push(currentMovieID);
+//     localStorage.setItem('movie-queue', JSON.stringify(queue));
+//   })
   //Pressing escape to close modal
   document.body.addEventListener('keydown', event => {
     if (event.code === 'Escape') {
